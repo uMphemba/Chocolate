@@ -1,0 +1,393 @@
+/* ===== RESET & BASE ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    overflow-y: scroll;
+}
+
+html::-webkit-scrollbar {
+    display: none;
+}
+
+body {
+    background: #0a0503;
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===== FIXED BACKGROUND ===== */
+#bg-layer {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    transition: background 0.2s ease-in-out;
+    will-change: background;
+}
+
+/* ===== SECTIONS ===== */
+section {
+    height: 100dvh;
+    scroll-snap-align: start;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* ===== NAVBAR ===== */
+#navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 50;
+    padding: 1.25rem 2rem;
+    transition: padding 0.2s ease, color 0.2s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    font-size: 1.25rem;
+    background: transparent;
+    pointer-events: none;
+}
+
+#navbar .brand {
+    pointer-events: auto;
+    cursor: default;
+}
+
+#navbar .nav-links {
+    display: flex;
+    gap: 2rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    font-size: 0.8rem;
+}
+
+#navbar .nav-links a {
+    pointer-events: auto;
+    cursor: default;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
+
+#navbar .nav-links a:hover {
+    opacity: 1;
+}
+
+#navbar.scrolled {
+    padding: 0.8rem 2rem;
+}
+
+/* ===== WATERMARK ===== */
+.watermark {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 35vw;
+    line-height: 0.9;
+    letter-spacing: -0.08em;
+    text-transform: uppercase;
+    opacity: 0.08;
+    position: absolute;
+    bottom: 5%;
+    right: 5%;
+    pointer-events: none;
+    user-select: none;
+    transform: scale(0.9) translateY(50px);
+    transition: all 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, opacity;
+}
+
+.watermark.visible {
+    transform: scale(1) translateY(0);
+    opacity: 0.12;
+}
+
+/* ===== PARTICLES ===== */
+.particles-container {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.particle {
+    position: absolute;
+    border-radius: 50%;
+    will-change: transform, opacity;
+}
+
+@keyframes particleFloat {
+    0% {
+        transform: translate(0, 0) scale(0.8);
+        opacity: 0.15;
+    }
+    100% {
+        transform: translate(calc(40px * var(--dir-x, 1)), calc(-30px * var(--dir-y, 1))) scale(1.2);
+        opacity: 0.5;
+    }
+}
+
+/* ===== IMAGE 3D WRAPPER ===== */
+.image-3d-wrap {
+    transform-style: preserve-3d;
+    perspective: 800px;
+    will-change: transform;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.1s ease-out;
+}
+
+.choco-image {
+    height: 70vh;
+    width: auto;
+    max-width: 90vw;
+    object-fit: contain;
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5));
+    transform: translateY(2rem) scale(1.02);
+    will-change: transform, opacity;
+    opacity: 0;
+    transition: opacity 1.5s ease, transform 1.5s ease;
+    animation: floatY 6s ease-in-out infinite alternate;
+}
+
+.choco-image.visible {
+    opacity: 1;
+    transform: translateY(2rem) scale(1.02);
+}
+
+@keyframes floatY {
+    0% {
+        transform: translateY(2rem) scale(1.02);
+    }
+    100% {
+        transform: translateY(-0.5rem) scale(1.04);
+    }
+}
+
+/* ===== CONTENT BLOCK ===== */
+.content-block {
+    opacity: 0;
+    transform: translateX(60px);
+    transition: all 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: 0.6s;
+    will-change: transform, opacity;
+}
+
+.content-block.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.subtitle {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    text-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    white-space: pre-line;
+}
+
+.desc {
+    font-weight: 300;
+    font-size: clamp(1rem, 1.4vw, 1.3rem);
+    line-height: 1.7;
+    opacity: 0.8;
+    max-width: 28rem;
+    margin-top: 1.5rem;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+    white-space: pre-line;
+}
+
+/* ===== SECTION LAYOUT ===== */
+.section-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    max-width: 1400px;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    padding: 5rem 1.5rem 2rem;
+    position: relative;
+    z-index: 10;
+}
+
+.section-left {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 100%;
+    position: relative;
+}
+
+.section-right {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: left;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (min-width: 768px) {
+    #navbar {
+        padding: 1.5rem 3rem;
+    }
+
+    .section-grid {
+        flex-direction: row;
+        gap: 0;
+        padding: 3rem 3rem 0;
+    }
+
+    .section-left {
+        width: 50%;
+    }
+
+    .section-right {
+        width: 50%;
+        padding-left: 2rem;
+    }
+
+    .choco-image {
+        height: 100vh;
+        transform: translateY(7rem) scale(1.02);
+    }
+
+    .choco-image.visible {
+        transform: translateY(7rem) scale(1.02);
+    }
+
+    .watermark {
+        font-size: 25vw;
+        bottom: 5%;
+        right: 5%;
+    }
+}
+
+@media (max-width: 767px) {
+    #navbar {
+        padding: 1rem 1.2rem;
+        font-size: 1rem;
+    }
+
+    #navbar .nav-links {
+        gap: 1rem;
+        font-size: 0.65rem;
+    }
+
+    .watermark {
+        font-size: 45vw;
+        bottom: 2%;
+        right: 2%;
+    }
+
+    .choco-image {
+        height: 50vh;
+        transform: translateY(1rem) scale(1.02);
+    }
+
+    .choco-image.visible {
+        transform: translateY(1rem) scale(1.02);
+    }
+
+    .section-grid {
+        padding: 4rem 1.2rem 1rem;
+        gap: 1rem;
+    }
+}
+
+/* ===== IMAGE OPTIMIZATION FOR YOUR DIMENSIONS ===== */
+.choco-image {
+    height: 70vh;
+    width: auto;
+    max-width: 90vw;
+    max-height: 80vh;
+    object-fit: contain;
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5));
+    transform: translateY(2rem) scale(1.02);
+    will-change: transform, opacity;
+    opacity: 0;
+    transition: opacity 1.5s ease, transform 1.5s ease;
+    animation: floatY 6s ease-in-out infinite alternate;
+    /* Maintain aspect ratio */
+    aspect-ratio: auto;
+}
+
+/* For larger screens */
+@media (min-width: 768px) {
+    .choco-image {
+        height: 85vh;
+        max-height: 90vh;
+        width: auto;
+        max-width: 45vw;
+        transform: translateY(7rem) scale(1.02);
+    }
+    
+    .choco-image.visible {
+        transform: translateY(7rem) scale(1.02);
+    }
+}
+
+/* For smaller screens */
+@media (max-width: 767px) {
+    .choco-image {
+        height: 50vh;
+        max-height: 60vh;
+        width: auto;
+        max-width: 85vw;
+        transform: translateY(1rem) scale(1.02);
+    }
+    
+    .choco-image.visible {
+        transform: translateY(1rem) scale(1.02);
+    }
+}
+
+/* Ensure images don't stretch */
+.section-left {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    position: relative;
+    padding: 1rem 0;
+}
+
+.image-3d-wrap {
+    transform-style: preserve-3d;
+    perspective: 800px;
+    will-change: transform;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.1s ease-out;
+}
