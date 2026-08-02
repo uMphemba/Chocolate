@@ -36,11 +36,6 @@ chateau-luxury/
     ├── dark.png
     ├── silk.png
     └── pista.png
-Getting Started
-bash
-git clone https://github.com/yourusername/chateau-luxury.git
-cd chateau-luxury
-open index.html
 Deployment
 Push to GitHub and enable Pages in Settings.
 
