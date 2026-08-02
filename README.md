@@ -25,17 +25,6 @@ Vanilla JavaScript
 
 Google Fonts
 
-Project Structure
-text
-chateau-luxury/
-├── index.html
-├── style.css
-├── script.js
-└── images/
-    ├── white.png
-    ├── dark.png
-    ├── silk.png
-    └── pista.png
 Deployment
 Push to GitHub and enable Pages in Settings.
 
